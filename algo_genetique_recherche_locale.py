@@ -10,8 +10,8 @@ def genetic_rt(data, populationInitiale, taille_population = 100, taux_mut = 0.1
     taux_mutation = taux_mut
     job_count = len(data[0])
     #print('jobs = {}   machines = {} '.format(job_count, len(data)))
-
     population_avec_qualite = evaluer_qualite(populationInitiale, data)
+
 
     score = 9999999
     iteration = 0
@@ -22,8 +22,12 @@ def genetic_rt(data, populationInitiale, taille_population = 100, taux_mut = 0.1
         iteration += 1
 
         parents = choisir_parents(population_avec_qualite)
+
         enfants = croisement(parents)
+
         mutation_rt(enfants, taux_mutation, data)
+
+
         population_avec_qualite = union(population_avec_qualite, evaluer_qualite(enfants, data))
         meilleurIndividu = choisir_meilleur(population_avec_qualite)
 

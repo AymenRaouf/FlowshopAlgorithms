@@ -62,14 +62,6 @@ for path in pathList:
 	# Generer une les individus de la population aleatoirement
 	initPop = [sample(list(range(0, job_count)), job_count) for _ in range(0, population_size)] # same repeated individual
 
-	print('Algorithme Hybride :')
-	start = time()
-	result = genetic_rt(matrice, initPop, population_size, 0.1, 200)
-	print('  Ordre : {}'.format(result[0]))
-	print('  Makespan : {}'.format(result[1]))
-	end = time()
-	print('  Temps d\'execution : {:.6}s\n'.format(end - start))
-
 	print('Algorithme Genetique :')
 	start = time()
 	result = genetic(matrice, initPop, population_size, 0.1, 200)
@@ -77,5 +69,13 @@ for path in pathList:
 	print('  Makespan : {}'.format(result[1]))
 	end = time()
 	print('  Temps d\'execution : {:.6}s\n\n'.format(end - start))
+
+	print('Algorithme Hybride :')
+	start = time()
+	result = genetic_rt(matrice, initPop, population_size, 0.1, 200)
+	print('  Ordre : {}'.format(result[0]))
+	print('  Makespan : {}'.format(result[1]))
+	end = time()
+	print('  Temps d\'execution : {:.6}s\n'.format(end - start))
 
 	input()

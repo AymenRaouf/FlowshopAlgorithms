@@ -5,27 +5,31 @@ import time
 import numpy as np
 from neh import neh
 import sys
-path = './data/ta20_20.txt'
-matrice = dataReader.read(path, 20)
-population_size = 100
-job_count = 20
-nb_machines = len(matrice[0])
 
 
-def simulated_annealing(Ti = 790,Tf = 3 ,alpha = 0.93):
+#population_size = 100
+#job_count = 20
+#nb_machines = len(matrice[0])
+
+
+def simulated_annealing(matrice, Ti = 790,Tf = 3 ,alpha = 0.93):
     #Number of jobs given
+    nb_machines, job_count = matrice.shape
     n = job_count;
+
     default_timer = None
     if sys.platform == "win32":
         default_timer = time.time()
     else:
         default_timer = time.time()
+
     s = default_timer
     #Initialize the primary seq
     old_seq = neh(matrice)
+    old_seq = old_seq[0]
     old_makeSpan = makespan(old_seq,matrice)
-    print("old sequence: ",old_seq)
-    print("old makespan: ",old_makeSpan)
+    #print("old sequence: ",old_seq)
+    #print("old makespan: ",old_makeSpan)
     new_seq = []       
     delta_mk1 = 0
     #Initialize the temperature
@@ -83,7 +87,16 @@ def simulated_annealing(Ti = 790,Tf = 3 ,alpha = 0.93):
                 job_id + 1), "start_time": start_t, "end_time": end_t}
             schedules[m_id][index + 1] = task
     t_t = e - s
-    return seq, schedules, old_makeSpan, t_t
+
+    return seq, old_makeSpan
+
+'''
 if __name__ == '__main__':
-    seq,schedules,new_makeSpan,t_t = simulated_annealing(Ti = 790,Tf = 3 ,alpha = 0.93)
-    print('new sequence :',seq,"\nNew_makespane",new_makeSpan,"\ntemps_Total : ",t_t)
+    path = './data/ta20_20.txt'
+    matrice = dataReader.read(path, 20)
+    seq, makespan = simulated_annealing(matrice, Ti = 790,Tf = 3 ,alpha = 0.93)
+    print(seq)
+    #print(schedules)
+    print(makespan)
+    #print('new sequence :',seq,"\nNew_makespane",new_makeSpan,"\ntemps_Total : ",t_t)
+'''

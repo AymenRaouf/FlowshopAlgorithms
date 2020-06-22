@@ -49,9 +49,10 @@ class SelectFile(QtWidgets.QDialog):
         self.method=method
         self.setWindowTitle(method)
         self.file.clicked.connect(self.showDiag)
-        self.file.clicked.connect(self.run)
+        self.exec.clicked.connect(self.run)
         self.back.clicked.connect(self.backHome)
         self.exec.setEnabled(False)
+
     def closeEvent(self, event):
         self.ui=Ui()
         self.ui.show()
@@ -88,13 +89,13 @@ class SelectFile(QtWidgets.QDialog):
             start = time()
             result = CDS(self.data)
             end = time()
-            self.label.setText(bend(50,'  Ordre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(result[0],result[1],end - start)))
+            self.label.setText(bend(50,'{}\nOrdre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(self.label.text(),result[0],result[1],end - start)))
             plotGantt(self.data,result[0],"CDS",job_count)
         elif self.method=="NEH":
             start = time()
             result = neh(self.data)
             end = time()
-            self.label.setText(bend(50,'  Ordre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(result[0],result[1],end - start)))
+            self.label.setText(bend(50,'{}\nOrdre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(self.label.text(),result[0],result[1],end - start)))
             plotGantt(self.data,result[0],"NEH",job_count)
         elif self.method=="GENETIC":
             population_size = 50
@@ -103,13 +104,13 @@ class SelectFile(QtWidgets.QDialog):
             start = time()
             result = genetic(self.data, initPop, population_size, 0.1, 200)
             end = time()
-            self.label.setText(bend(50,'  Ordre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(result[0],result[1],end - start)))
+            self.label.setText(bend(50,'{}\nOrdre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(self.label.text(),result[0],result[1],end - start)))
             plotGantt(self.data,result[0],"Genetic",job_count)
         elif self.method=="RECUIT":
             start = time()
             result = simulated_annealing(self.daa, Ti = 790,Tf = 3 ,alpha = 0.93)
             end = time()
-            self.label.setText(bend(50,'  Ordre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(result[0],result[1],end - start)))
+            self.label.setText(bend(50,'{}\nOrdre : {}\nMakespan : {}\nTemps d\'execution : {:.6}s'.format(self.label.text(),result[0],result[1],end - start)))
             plotGantt(self.data,result[0],"Genetic",job_count)
         elif self.method=="HYBRID":
             population_size = 50
@@ -118,7 +119,7 @@ class SelectFile(QtWidgets.QDialog):
             start = time()
             result = genetic_rt(self.data, initPop, population_size, 0.1, 200)
             end = time()
-            self.label.setText(bend(50,'  Ordre : {}\n Makespan : {}\nTemps d\'execution : {:.6}s'.format(result[0],result[1],end - start)))
+            self.label.setText(bend(50,'{}\nOrdre : {}\n Makespan : {}\nTemps d\'execution : {:.6}s'.format(self.label.text(),result[0],result[1],end - start)))
             plotGantt(self.data,result[0],"Hybrid",job_count)
 
     def backHome(self):

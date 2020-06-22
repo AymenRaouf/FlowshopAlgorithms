@@ -10,11 +10,9 @@ def plotGantt(jobMatrix,jobOrder,nom,nb=7):
 
     nb_machine, nb_jobs = jobMatrix.shape
     ganttTable = _calc_makespan(jobMatrix,jobOrder,True)
+    colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000']
     for i in range(nb_jobs):
-        ax.broken_barh([(ganttTable[i,0], ganttTable[i,1]-ganttTable[i,0]), (ganttTable[i,2], ganttTable[i,3]-ganttTable[i,2])], (10*i, 10), facecolors=('red', 'yellow'))
-
-    ax.set_ylim(-10, 75)
-    ax.set_xlim(0,600)
+        ax.broken_barh([(ganttTable[i,2*j], ganttTable[i,2*j+1]-ganttTable[i,2*j]) for j in range(nb_machine)], (10*i, 10),facecolors=colors[:nb_machine])
     ax.set_xlabel('Temps')
     ax.set_yticks([i*10 for i in range(nb)])
     tasklist= ["Task"+str(x) for x in jobOrder]

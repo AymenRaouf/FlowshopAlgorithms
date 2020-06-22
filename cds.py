@@ -10,11 +10,12 @@ def plotGantt(jobMatrix,jobOrder,nom,nb=7):
 
     nb_machine, nb_jobs = jobMatrix.shape
     ganttTable = _calc_makespan(jobMatrix,jobOrder,True)
+    print(ganttTable)
     for i in range(nb_jobs):
         ax.broken_barh([(ganttTable[i,0], ganttTable[i,1]-ganttTable[i,0]), (ganttTable[i,2], ganttTable[i,3]-ganttTable[i,2])], (10*i, 10), facecolors=('red', 'yellow'))
 
-    ax.set_ylim(-10, 75)
-    ax.set_xlim(0,600)
+    #ax.set_ylim(-10, 75)
+    #ax.set_xlim(0,600)
     ax.set_xlabel('Temps')
     ax.set_yticks([i*10 for i in range(nb)])
     tasklist= ["Task"+str(x) for x in jobOrder]
@@ -35,6 +36,7 @@ def _calc_makespan(jobMatrix,jobOrder,full=False):
     if full==False:
         return ganttTable[-1,-1]
     return ganttTable
+
 def Johnson(jobMatrix):
     nb_machine, nb_jobs = jobMatrix.shape
     jobMatrix = np.vstack((jobMatrix,list(range(nb_jobs))))

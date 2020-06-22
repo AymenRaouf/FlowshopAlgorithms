@@ -66,7 +66,11 @@ class SelectFile(QtWidgets.QDialog):
                 nbLignes = 5
             elif  '/data/ta20_20_1.txt' in fname[0]:
                 nbLignes = 20
+            elif  '/data/ta20_20_2.txt' in fname[0]:
+                nbLignes = 20
             elif '/data/ta100_10_1.txt' in fname[0]:
+                nbLignes = 10
+            else:
                 nbLignes = 10
             #Load the file and check if valid
             matrice = dataReader.read(fname[0], nbLignes)

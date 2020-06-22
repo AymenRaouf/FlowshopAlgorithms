@@ -11,7 +11,7 @@ def plotGantt(jobMatrix,jobOrder,nom,nb=7):
     nb_machine, nb_jobs = jobMatrix.shape
     ganttTable = _calc_makespan(jobMatrix,jobOrder,True)
 
-    colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000']
+    colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000',"#ff0000", "#7f0000", "#400000", "#ff8080", "#7f4040", "#403030", "#bf8f00", "#7f7040", "#7fff00", "#508020", "#dfffbf", "#10401c", "#7fff9f", "#208080", "#80ffff", "#204040", "#002080", "#101c40", "#809fff", "#bfcfff", "#9f40ff", "#604080", "#dfbfff", "#383040", "#400030", "#bf309b", "#806078"]
     for i in range(nb_jobs):
         ax.broken_barh([(ganttTable[i,2*j], ganttTable[i,2*j+1]-ganttTable[i,2*j]) for j in range(nb_machine)], (10*i, 10),facecolors=colors[:nb_machine])
     
@@ -20,6 +20,7 @@ def plotGantt(jobMatrix,jobOrder,nom,nb=7):
     tasklist= ["Task"+str(x) for x in jobOrder]
     ax.set_yticklabels(tasklist)
     ax.grid(True)
+    plt.title('Makespan = {}'.format(makespan(jobOrder, jobMatrix)))
     plt.show()
 
 def _calc_makespan(jobMatrix,jobOrder,full=False):

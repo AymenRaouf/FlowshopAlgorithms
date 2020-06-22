@@ -5,7 +5,7 @@ import data as dataReader
 from makespan import makespan
 
 
-def plotGantt(jobMatrix,jobOrder,nom):
+def plotGantt(jobMatrix,jobOrder,nom,nb=7):
     fig, ax = plt.subplots()
 
     nb_machine, nb_jobs = jobMatrix.shape
@@ -16,7 +16,7 @@ def plotGantt(jobMatrix,jobOrder,nom):
     ax.set_ylim(-10, 75)
     ax.set_xlim(0,600)
     ax.set_xlabel('Temps')
-    ax.set_yticks([0,10,20, 30,40,50,60,70])
+    ax.set_yticks([i*10 for i in range(nb)])
     tasklist= ["Task"+str(x) for x in jobOrder]
     ax.set_yticklabels(tasklist)
     ax.grid(True)
